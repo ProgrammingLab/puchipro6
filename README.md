@@ -10,4 +10,5 @@ Gitの使い方がよく分からない方は、"Download ZIP"をクリックし
 # ビジュアライザの動作が確認された環境
 
 Windows10
+
 .NET Framework 4.6
