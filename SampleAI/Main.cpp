@@ -96,6 +96,8 @@ public:
 class State
 {
 public:
+	int score;
+	int remainedTime;
 	int W, H, N, M;
 	//座標(x,y)の情報はfield[x][y]に入っている
 	//field[y][x]ではないので注意!
@@ -108,13 +110,16 @@ public:
 		W = H = N = M = 0;
 	}
 
-	static State Input(int w, int h, int n, int m)
+	static State Input(int _score, int w, int h, int n, int m)
 	{
 		State res;
+		res.score = _score;
 		res.W = w; res.H = h; res.N = n; res.M = m;
 		res.field.resize(w);
 		res.rain.resize(w);
 		for (int x = 0; x < w; x++) res.field[x].reserve(h);
+
+		cin >> res.remainedTime;
 		for (int x = 0; x < w; x++)
 		{
 			int cnt;
@@ -157,7 +162,7 @@ private:
 public:
 	//指定した座標の玉と完全に同じ種類の玉のうち、繋がっているものの座標を返す(指定した座標も含む)
 	//usedは既に調べた座標のところにtrueを入れる
-	vector<Point> GetLump(const Point &pos, vector< vector<bool> > used) const
+	vector<Point> GetLump(const Point &pos, vector< vector<bool> > &used) const
 	{
 		vector<Point> res;
 		if (used[pos.x][pos.y]) return res;
@@ -258,13 +263,15 @@ public:
 int main()
 {
 	//最も多くの色付き玉が消せる座標を貪欲的に選ぶAI
+	int myScore, rivalScore;
 	int w, h, n, m;
 	cin >> w >> h >> n >> m;
+	cin >> myScore >> rivalScore;
 	cout << "GreedyAI" << endl;
 	while (true)
 	{
-		State myState = State::Input(w, h, n, m);
-		State rivalState = State::Input(w, h, n, m);
+		State myState = State::Input(myScore, w, h, n, m);
+		State rivalState = State::Input(rivalScore, w, h, n, m);
 		Point ans;
 		int maxSize = 0;
 		for (int x = 0; x < w; x++)
