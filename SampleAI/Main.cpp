@@ -2,6 +2,8 @@
 #include <cstdio>
 #include <vector>
 #include <queue>
+#include <cstdlib>
+#include <climits>
 using namespace std;
 
 const int HARD_OJAMA = -2;
