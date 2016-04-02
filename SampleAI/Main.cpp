@@ -96,7 +96,6 @@ public:
 class State
 {
 public:
-	int score;
 	int remainedTime;
 	int W, H, N, M;
 	//座標(x,y)の情報はfield[x][y]に入っている
@@ -110,10 +109,9 @@ public:
 		W = H = N = M = 0;
 	}
 
-	static State Input(int _score, int w, int h, int n, int m)
+	static State Input(int w, int h, int n, int m)
 	{
 		State res;
-		res.score = _score;
 		res.W = w; res.H = h; res.N = n; res.M = m;
 		res.field.resize(w);
 		res.rain.resize(w);
@@ -260,18 +258,23 @@ public:
 	}
 };
 
+int myScore, rivalScore;
+bool isFirst;
+
 int main()
 {
 	//最も多くの色付き玉が消せる座標を貪欲的に選ぶAI
-	int myScore, rivalScore;
 	int w, h, n, m;
 	cin >> w >> h >> n >> m;
+	int tmp;
+	cin >> tmp;
+	isFirst = (tmp == 0) ? true : false;
 	cin >> myScore >> rivalScore;
 	cout << "GreedyAI" << endl;
 	while (true)
 	{
-		State myState = State::Input(myScore, w, h, n, m);
-		State rivalState = State::Input(rivalScore, w, h, n, m);
+		State myState = State::Input(w, h, n, m);
+		State rivalState = State::Input(w, h, n, m);
 		Point ans;
 		int maxSize = 0;
 		for (int x = 0; x < w; x++)
